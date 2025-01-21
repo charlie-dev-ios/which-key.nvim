@@ -234,6 +234,12 @@ function M.execute(state, key, node)
       keystr = '"' .. vim.v.register .. keystr
     end
   end
+  local curr_mode = vim.api.nvim_get_mode().mode
+
+  if curr_mode:find("ni[IRV]") ~= nil then
+    keystr = "<C-O>" .. keystr
+  end
+
   Util.debug("feedkeys", tostring(state.mode), keystr)
   local feed = vim.api.nvim_replace_termcodes(keystr, true, true, true)
   vim.api.nvim_feedkeys(feed, "mit", false)
