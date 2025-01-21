@@ -233,11 +233,12 @@ function M.execute(state, key, node)
     if vim.v.register ~= Util.reg() and state.mode.mode ~= "i" and state.mode.mode ~= "c" then
       keystr = '"' .. vim.v.register .. keystr
     end
-  end
-  local curr_mode = vim.api.nvim_get_mode().mode
 
-  if curr_mode:find("ni[IRV]") ~= nil then
-    keystr = "<C-O>" .. keystr
+    local curr_mode = vim.api.nvim_get_mode().mode
+
+    if curr_mode:find("ni[IRV]") ~= nil then
+      keystr = "<C-O>" .. keystr
+    end
   end
 
   Util.debug("feedkeys", tostring(state.mode), keystr)
